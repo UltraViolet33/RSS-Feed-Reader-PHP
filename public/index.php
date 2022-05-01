@@ -14,8 +14,6 @@ session_start(); ?>
                 <?php unset($_SESSION['error']); ?>
             </p>
         </div>
-
     <?php endif; ?>
-
 </div>
 <?php require_once('./inc/footer.php'); ?>

@@ -112,6 +112,4 @@ class RssLink
             var_dump($entry);
         }
     }
-
-
 }
