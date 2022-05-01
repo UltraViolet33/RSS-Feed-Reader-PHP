@@ -2,15 +2,41 @@
 
 namespace App;
 
+use SimpleXMLElement;
+
 class RssLink
 {
-
-    public function getLinks($url)
+    /**
+     * saveJSON
+     * save the RSS link in the JSON file
+     * @return void
+     */
+    public function saveJSON(string $url): void
     {
+        $link = $this->getLinks($url);
+        $allLinks = $this->getJSON();
+        $allLinks['test4'] = $link;
+        $json = json_encode($allLinks);
+        file_put_contents("data.json", $json);
+    }
+
+    /**
+     * getLinks
+     * get the link for the RSS flux
+     * @return ?string
+     */
+    private function getLinks(string $url): ?string
+    {
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            $_SESSION['error'] = "URL non valide <br>";
+            header("Location: index");
+            return null;
+            unset($_SESSION['error']);
+        }
+
         $html = file_get_contents($url);
         preg_match_all('/<link\s+(.*?)\s*\/?>/si', $html, $matches);
         $links = $matches[1];
-
         $final_links = array();
         $link_count = count($links);
         for ($n = 0; $n < $link_count; $n++) {
@@ -28,13 +54,14 @@ class RssLink
         for ($n = 0; $n < $link_count; $n++) {
             if (strtolower($final_links[$n]['rel']) == 'alternate') {
                 if (strtolower($final_links[$n]['type']) == 'application/rss+xml') {
+
                     $href = $final_links[$n]['href'];
                 }
-                if (!$href and strtolower($final_links[$n]['type']) == 'text/xml') {
+                if (isset($href) and strtolower($final_links[$n]['type']) == 'text/xml') {
                     #kludge to make the first version of this still work
                     $href = $final_links[$n]['href'];
                 }
-                if ($href) {
+                if (isset($href)) {
                     if (strstr($href, "http://") !== false) { #if it's absolute
                         $full_url = $href;
                     } else { #otherwise, 'absolutize' it
@@ -55,7 +82,36 @@ class RssLink
                     }
                     return $href;
                 }
+
+                $_SESSION['error'] = 'URL sans flux RSS';
+                header("Location: index");
+                return null;
+                unset($_SESSION['error']);
             }
         }
     }
+
+    /**
+     * getJSON
+     * get the json data in the json file and parse it
+     * @return array
+     */
+    private function getJSON(): array
+    {
+        $array = [];
+        $json = file_get_contents('data.json');
+        $array = json_decode($json, true);
+        return $array;
+    }
+
+    public function displayXML($content)
+    {
+        $xml = new SimpleXMLElement($content);
+
+        foreach ($xml->channel->item as $entry) {
+            var_dump($entry);
+        }
+    }
+
+
 }

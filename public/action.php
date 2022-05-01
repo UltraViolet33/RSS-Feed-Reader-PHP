@@ -1,15 +1,20 @@
 <?php
+session_start();
 require_once('./../app/classes/RssLink.php');
+
 use App\RssLink;
-error_reporting(0);
-    if(!isset($_POST) || empty($_POST['url'])){
-        header('Location: index');
-        return;
-    }
 
-    $url = $_POST['url'];
-    $document = new RssLink();
+if (!isset($_POST) || empty($_POST['url'])) {
+    $_SESSION['error'] = "Veuillez indiquer une url <br>";
+    header('Location: index');
+    return;
+}
 
-    $links = $document->getLinks($url);
+$url = $_POST['url'];
 
-   
+$document = new RssLink();
+
+$document->saveJSON($url);
+
+header('Location: index');
+die;
