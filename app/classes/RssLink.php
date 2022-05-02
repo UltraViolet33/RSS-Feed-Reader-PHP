@@ -129,7 +129,7 @@ class RssLink
         return $websites;
     }
 
-    
+
     /**
      * parseXML
      * return XML data from RSS link

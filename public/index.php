@@ -1,8 +1,8 @@
-<?php require_once('./inc/header.php');
+<?php 
+session_start();
+require_once('./../app/inc/header.php');
 require_once('./../app/classes/RssLink.php');
 use App\RssLink;
-session_start();
-
 $data = RssLink::getRSSlinks();
 ?>
 <div class="container">
@@ -32,7 +32,7 @@ $data = RssLink::getRSSlinks();
 </div>
 <div class="container-links">
     <?php foreach ($data as $link) : ?>
-        <?php require('./inc/link.php'); ?>
+        <?php require('./../app/inc/link.php'); ?>
     <?php endforeach; ?>
 </div>
-<?php require_once('./inc/footer.php'); ?>
+<?php require_once('./../app/inc/footer.php'); ?>
