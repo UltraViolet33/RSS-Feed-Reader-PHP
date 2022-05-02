@@ -11,7 +11,6 @@ use App\RssLink;
 
 
 ?>
-<h1 class="center">Home page</h1>
 <div class="form">
     <form action="<?= ROOT ?>/action.php" method="POST">
         <label for="link">Ajouter un lien</label>
