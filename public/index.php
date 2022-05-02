@@ -1,17 +1,10 @@
 <?php require_once('./inc/header.php');
+require_once('./../app/classes/RssLink.php');
+use App\RssLink;
 session_start();
 
-require_once('./../app/classes/RssLink.php');
-
-use App\RssLink;
-
-$doc = new RssLink();
-
-$data = $doc->getRSSlinks();
-
-
+$data = RssLink::getRSSlinks();
 ?>
-
 <div class="container">
     <form action="<?= ROOT ?>/action.php" method="POST">
         <div class="row">
@@ -27,22 +20,19 @@ $data = $doc->getRSSlinks();
         </div>
     </form>
     <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])) : ?>
-        <div>
-            <p class="center">
-                <?= $_SESSION['error'] ?>
-                <?php unset($_SESSION['error']); ?>
-            </p>
+        <div class="row">
+            <div class="error">
+                <p class="center">
+                    <?= $_SESSION['error'] ?>
+                    <?php unset($_SESSION['error']); ?>
+                </p>
+            </div>
         </div>
     <?php endif; ?>
 </div>
-
-<div>
-    <?php foreach ($data as $link) {
-        require('./inc/link.php');
-    }
-
-
-    ?>
-
+<div class="container-links">
+    <?php foreach ($data as $link) : ?>
+        <?php require('./inc/link.php'); ?>
+    <?php endforeach; ?>
 </div>
 <?php require_once('./inc/footer.php'); ?>

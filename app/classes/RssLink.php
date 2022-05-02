@@ -6,28 +6,30 @@ use SimpleXMLElement;
 
 class RssLink
 {
+
     /**
      * saveJSON
      * save the RSS link in the JSON file
      * @return void
      */
-    public function saveJSON(string $url): void
+    public static function saveJSON(string $url): void
     {
-        $link = $this->getLinks($url);
+        $link = self::getLinks($url);
         if (!is_null($link)) {
-            $allLinks = $this->getJSON();
+            $allLinks = self::getJSON();
             $allLinks[] = $link;
             $json = json_encode($allLinks);
             file_put_contents("data.json", $json);
         }
     }
 
+
     /**
      * getLinks
      * get the link for the RSS flux
-     * @return 
+     * @return ?string
      */
-    private function getLinks(string $url)
+    private static function getLinks(string $url): ?string
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             $_SESSION['error'] = "URL non valide <br>";
@@ -82,13 +84,10 @@ class RssLink
                         }
                         $full_url .= $href;
                     }
-                  
+
                     return $href;
                 }
-
-               
             }
-           
         }
         $_SESSION['error'] = 'URL sans flux RSS';
         header("Location: index");
@@ -96,64 +95,51 @@ class RssLink
         unset($_SESSION['error']);
     }
 
+
     /**
      * getJSON
      * get the json data in the json file and parse it
      * @return array
      */
-    private function getJSON(): array
+    private static function getJSON(): array
     {
-      
         $json = file_get_contents('data.json');
         $array = json_decode($json, true);
-       if(is_null($array))
-       {
-       
-      $array = [];
-       }
+        if (is_null($array)) {
+            $array = [];
+        }
         return $array;
     }
 
-    public function displayXML($content)
-    {
-        $xml = new SimpleXMLElement($content);
 
-        foreach ($xml->channel->item as $entry) {
-            var_dump($entry);
-        }
-    }
-
-
-    public function getRSSlinks()
+    /**
+     * getRSSLinks
+     * get the links from the data json file
+     * and return the XML data
+     * @return array
+     */
+    public static function getRSSlinks(): array
     {
         $dataJSON = file_get_contents('data.json');
         $data = json_decode($dataJSON);
         $websites = [];
         foreach ($data as $link) {
-           
-            $websites[] = $this->parseXML($link);
+            $websites[] = self::parseXML($link);
         }
-
-      
         return $websites;
     }
 
-
-    public function parseXML($link)
+    
+    /**
+     * parseXML
+     * return XML data from RSS link
+     * @param string $link
+     * @return object
+     */
+    private static function parseXML(string $link): object
     {
         $content = file_get_contents($link);
-
-        $data = [];
-
         $a = new SimpleXMLElement($content);
-        // foreach($a->channel as $entry)
-        // {
-        //    var_dump($entry);
-        //     $data['title'] = $entry->title;
-        //     $data['link'] = $entry->link;
-
-        // }
-
         return $a->channel;
     }
 }

@@ -65,6 +65,7 @@ h1 {
 
 h2 {
   font-size: 2rem;
+  margin-bottom: 15px;
 }
 
 h3 {
@@ -237,11 +238,13 @@ input[type="submit"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
+  font-size: 15px;
   float: right;
 }
 
 input[type="submit"]:hover {
-  background-color: #363b36;
+  background-color: #5c915c;
+  color: white;
 }
 
 .container {
@@ -293,4 +296,49 @@ input[type="submit"]:hover {
     width: 100%;
     margin-top: 10px;
   }
+}
+/*
+=============== 
+Links Styles
+===============
+*/
+.container-links {
+  margin: 10px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.link {
+  margin: 40px 20px;
+  padding: 20px;
+  width: 80%;
+
+  box-shadow: var(--light-shadow);
+}
+
+a {
+  color: #222;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  text-align: justify;
+}
+
+.error {
+  background-color: #f44336;
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+  width: 40%;
+  margin: 15px auto;
+}
+
+.items {
+  margin-bottom: 15px;
 }

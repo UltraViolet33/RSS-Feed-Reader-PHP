@@ -11,10 +11,6 @@ if (!isset($_POST) || empty($_POST['url'])) {
 }
 
 $url = $_POST['url'];
-
-$document = new RssLink();
-
-$document->saveJSON($url);
-
+RssLink::saveJSON($url);
 header('Location: index');
 die;
