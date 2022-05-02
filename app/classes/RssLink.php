@@ -14,18 +14,20 @@ class RssLink
     public function saveJSON(string $url): void
     {
         $link = $this->getLinks($url);
-        $allLinks = $this->getJSON();
-        $allLinks['test4'] = $link;
-        $json = json_encode($allLinks);
-        file_put_contents("data.json", $json);
+        if (!is_null($link)) {
+            $allLinks = $this->getJSON();
+            $allLinks[] = $link;
+            $json = json_encode($allLinks);
+            file_put_contents("data.json", $json);
+        }
     }
 
     /**
      * getLinks
      * get the link for the RSS flux
-     * @return ?string
+     * @return 
      */
-    private function getLinks(string $url): ?string
+    private function getLinks(string $url)
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             $_SESSION['error'] = "URL non valide <br>";
@@ -80,15 +82,18 @@ class RssLink
                         }
                         $full_url .= $href;
                     }
+                  
                     return $href;
                 }
 
-                $_SESSION['error'] = 'URL sans flux RSS';
-                header("Location: index");
-                return null;
-                unset($_SESSION['error']);
+               
             }
+           
         }
+        $_SESSION['error'] = 'URL sans flux RSS';
+        header("Location: index");
+        return null;
+        unset($_SESSION['error']);
     }
 
     /**
@@ -98,9 +103,14 @@ class RssLink
      */
     private function getJSON(): array
     {
-        $array = [];
+      
         $json = file_get_contents('data.json');
         $array = json_decode($json, true);
+       if(is_null($array))
+       {
+       
+      $array = [];
+       }
         return $array;
     }
 
@@ -111,5 +121,39 @@ class RssLink
         foreach ($xml->channel->item as $entry) {
             var_dump($entry);
         }
+    }
+
+
+    public function getRSSlinks()
+    {
+        $dataJSON = file_get_contents('data.json');
+        $data = json_decode($dataJSON);
+        $websites = [];
+        foreach ($data as $link) {
+           
+            $websites[] = $this->parseXML($link);
+        }
+
+      
+        return $websites;
+    }
+
+
+    public function parseXML($link)
+    {
+        $content = file_get_contents($link);
+
+        $data = [];
+
+        $a = new SimpleXMLElement($content);
+        // foreach($a->channel as $entry)
+        // {
+        //    var_dump($entry);
+        //     $data['title'] = $entry->title;
+        //     $data['link'] = $entry->link;
+
+        // }
+
+        return $a->channel;
     }
 }

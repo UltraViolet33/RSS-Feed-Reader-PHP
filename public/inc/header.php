@@ -20,15 +20,20 @@ require_once('./../app/config.php');
                 <button class="nav-toggle">
                     <i class="fas fa-bars"></i>
                 </button>
+                <h1>RSS Reader</h1>
             </div>
             <ul class="links">
                 <li>
-                    <a href="index.html">home</a>
+                    <a href="index.html">RSS</a>
                 </li>
                 <li>
-                    <a href="about.html">List</a>
+                    <a href="about.html">All RSS links</a>
                 </li>
             </ul>
         </div>
     </nav>
+
+    <main>
+      
+    </main>
     <div>
