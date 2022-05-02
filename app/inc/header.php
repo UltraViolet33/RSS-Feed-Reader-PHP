@@ -32,8 +32,4 @@ require_once('./../app/config.php');
             </ul>
         </div>
     </nav>
-
-    <main>
-      
-    </main>
     <div>

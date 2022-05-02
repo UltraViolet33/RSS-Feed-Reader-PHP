@@ -1,8 +1,10 @@
-<?php 
+<?php
 session_start();
 require_once('./../app/inc/header.php');
 require_once('./../app/classes/RssLink.php');
+
 use App\RssLink;
+
 $data = RssLink::getRSSlinks();
 ?>
 <div class="container">
