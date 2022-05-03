@@ -13,4 +13,4 @@ if (!isset($_POST) || empty($_POST['url'])) {
 $url = $_POST['url'];
 RssLink::saveLink($url);
 header('Location: index');
-die;
+return;

@@ -1,8 +1,9 @@
 <?php
 require_once('./../app/config.php');
+session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +28,7 @@ require_once('./../app/config.php');
                     <a href="index.php">RSS</a>
                 </li>
                 <li>
-                    <a href="show.php">All RSS links</a>
+                    <a href="show.php">Tout les flux RSS</a>
                 </li>
             </ul>
         </div>

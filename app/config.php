@@ -1,4 +1,5 @@
 <?php
 
-$root = 'http://localhost:8000';
+$root = 'http://' . $_SERVER['HTTP_HOST'];
+
 define("ROOT", $root);

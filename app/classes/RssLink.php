@@ -10,6 +10,7 @@ class RssLink
     /**
      * saveJSON
      * save the RSS link in the JSON file
+     * @param string $url
      * @return void
      */
     public static function saveLink(string $url): void
@@ -25,6 +26,7 @@ class RssLink
     /**
      * getLinks
      * get the link for the RSS flux
+     * @param string $url
      * @return ?string
      */
     private static function getLinks(string $url): ?string

@@ -1,5 +1,4 @@
 <?php
-session_start();
 $title = "List RSS";
 require_once('./../app/inc/header.php');
 require_once('./../app/classes/RssLink.php');
@@ -10,7 +9,7 @@ $data = RssLink::getJSON();
 ?>
 <div class="container">
     <h1>Listes des flux RSS</h1>
-    <table id="customers">
+    <table id="table">
         <tr>
             <th>Websites</th>
             <th>Supprimer</th>
