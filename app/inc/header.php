@@ -10,9 +10,8 @@ require_once('./../app/config.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../assets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
-    <title>RSS Feed Reader</title>
+    <title>RSS Feed Reader - <?= $title ?></title>
 </head>
-
 <body>
     <nav>
         <div class="nav-center">
@@ -27,7 +26,7 @@ require_once('./../app/config.php');
                     <a href="index.html">RSS</a>
                 </li>
                 <li>
-                    <a href="about.html">All RSS links</a>
+                    <a href="show.php">All RSS links</a>
                 </li>
             </ul>
         </div>

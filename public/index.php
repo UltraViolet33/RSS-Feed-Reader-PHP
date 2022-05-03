@@ -1,5 +1,6 @@
 <?php
 session_start();
+$title = "Home";
 require_once('./../app/inc/header.php');
 require_once('./../app/classes/RssLink.php');
 

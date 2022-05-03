@@ -101,7 +101,7 @@ class RssLink
      * get the json data in the json file and parse it
      * @return array
      */
-    private static function getJSON(): array
+    public static function getJSON(): array
     {
         $json = file_get_contents('data.json');
         $array = json_decode($json, true);
