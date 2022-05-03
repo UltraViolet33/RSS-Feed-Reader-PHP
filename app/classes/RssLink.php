@@ -12,17 +12,15 @@ class RssLink
      * save the RSS link in the JSON file
      * @return void
      */
-    public static function saveJSON(string $url): void
+    public static function saveLink(string $url): void
     {
         $link = self::getLinks($url);
         if (!is_null($link)) {
             $allLinks = self::getJSON();
             $allLinks[] = $link;
-            $json = json_encode($allLinks);
-            file_put_contents("data.json", $json);
+            self::saveFile($allLinks);
         }
     }
-
 
     /**
      * getLinks
@@ -95,7 +93,6 @@ class RssLink
         unset($_SESSION['error']);
     }
 
-
     /**
      * getJSON
      * get the json data in the json file and parse it
@@ -110,7 +107,6 @@ class RssLink
         }
         return $array;
     }
-
 
     /**
      * getRSSLinks
@@ -129,7 +125,6 @@ class RssLink
         return $websites;
     }
 
-
     /**
      * parseXML
      * return XML data from RSS link
@@ -141,5 +136,29 @@ class RssLink
         $content = file_get_contents($link);
         $a = new SimpleXMLElement($content);
         return $a->channel;
+    }
+
+    /**
+     * deleteLink
+     * @param int $id
+     * @return void
+     */
+    public static function deleteLink(int $id): void
+    {
+        $links = self::getJSON();
+        unset($links[$id]);
+        self::saveFile($links);
+    }
+
+
+    /**
+     * saveFile
+     * @param array $links
+     * @return void
+     */
+    private static function saveFile(array $links): void
+    {
+        $jsonLinks = json_encode($links);
+        file_put_contents("data.json", $jsonLinks);
     }
 }

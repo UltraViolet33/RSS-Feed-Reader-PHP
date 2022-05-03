@@ -12,6 +12,7 @@ require_once('./../app/config.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
     <title>RSS Feed Reader - <?= $title ?></title>
 </head>
+
 <body>
     <nav>
         <div class="nav-center">
@@ -23,7 +24,7 @@ require_once('./../app/config.php');
             </div>
             <ul class="links">
                 <li>
-                    <a href="index.html">RSS</a>
+                    <a href="index.php">RSS</a>
                 </li>
                 <li>
                     <a href="show.php">All RSS links</a>

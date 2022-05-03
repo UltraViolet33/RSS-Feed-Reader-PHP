@@ -19,7 +19,7 @@ $data = RssLink::getJSON();
             <tr>
                 <td><?= $link ?></td>
                 <td>
-                    <form method="POST" action="delete.php">
+                    <form onsubmit="return confirm('Voulez vous vraiment supprimer le lien ?')" method="POST" action="delete.php">
                         <input type="hidden" name="link" value="<?= $id ?>">
                         <input type="submit" value="Supprimer">
                     </form>
@@ -27,5 +27,15 @@ $data = RssLink::getJSON();
             </tr>
         <?php endforeach; ?>
     </table>
+    <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])) : ?>
+        <div class="row">
+            <div class="error">
+                <p class="center">
+                    <?= $_SESSION['error'] ?>
+                    <?php unset($_SESSION['error']); ?>
+                </p>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>
 <?php require_once('./../app/inc/footer.php'); ?>

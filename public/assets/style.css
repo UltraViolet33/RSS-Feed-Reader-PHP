@@ -247,6 +247,10 @@ input[type="submit"]:hover {
   color: white;
 }
 
+input[value="Supprimer"]:hover {
+  background-color: #f44336;
+}
+
 .container {
   border-radius: 5px;
   background: var(--clr-white);
@@ -343,8 +347,6 @@ p {
   margin: 20px;
 }
 
-
-
 /*
 =============== 
 Table Styles
@@ -358,14 +360,19 @@ Table Styles
   margin: auto;
 }
 
-#customers td, #customers th {
+#customers td,
+#customers th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-#customers tr:hover {background-color: #ddd;}
+#customers tr:hover {
+  background-color: #ddd;
+}
 
 #customers th {
   padding-top: 12px;
@@ -373,5 +380,4 @@ Table Styles
   text-align: left;
   background: var(--clr-grey-1);
   color: white;
-  
 }
