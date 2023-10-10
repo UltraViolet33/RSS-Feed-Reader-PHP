@@ -1,7 +1,8 @@
 <?php
+
 $title = "List RSS";
-require_once('./../app/inc/header.php');
-require_once('./../app/classes/RssLink.php');
+require_once './../app/inc/header.php';
+require_once './../app/classes/RssLink.php';
 
 use App\RssLink;
 
@@ -37,4 +38,4 @@ $data = RssLink::getJSON();
         </div>
     <?php endif; ?>
 </div>
-<?php require_once('./../app/inc/footer.php'); ?>
+<?php require_once './../app/inc/footer.php'; ?>
