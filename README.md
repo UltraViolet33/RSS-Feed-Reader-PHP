@@ -1,6 +1,7 @@
 # RSS Feed Reader PHP
 
-This is a Feed RSS reader in PHP
+This is my personal RSS reader made with PHP
 
-You can add and delete a RSS flux
-
+Desktop             |  Mobile
+:-------------------------:|:-------------------------:
+<img src="./public/assets/img/desktop.PNG"> | <img src="./public/assets/img/mobile.PNG">
