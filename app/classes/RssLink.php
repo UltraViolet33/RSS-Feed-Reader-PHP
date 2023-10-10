@@ -7,12 +7,6 @@ use SimpleXMLElement;
 class RssLink
 {
 
-    /**
-     * saveJSON
-     * save the RSS link in the JSON file
-     * @param string $url
-     * @return void
-     */
     public static function saveLink(string $url): void
     {
         $link = self::getLinks($url);
@@ -23,19 +17,14 @@ class RssLink
         }
     }
 
-    /**
-     * getLinks
-     * get the link for the RSS flux
-     * @param string $url
-     * @return ?string
-     */
+
     private static function getLinks(string $url): ?string
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             $_SESSION['error'] = "URL non valide <br>";
             header("Location: index");
             return null;
-            unset($_SESSION['error']);
+            // unset($_SESSION['error']);
         }
 
         $html = file_get_contents($url);
@@ -62,29 +51,25 @@ class RssLink
                     $href = $final_links[$n]['href'];
                 }
                 if (isset($href) and strtolower($final_links[$n]['type']) == 'text/xml') {
-                    #kludge to make the first version of this still work
                     $href = $final_links[$n]['href'];
                 }
                 if (isset($href)) {
-                    if (strstr($href, "http://") !== false) { #if it's absolute
+                    if (strstr($href, "http://") !== false) {
                         $full_url = $href;
-                    } else { #otherwise, 'absolutize' it
+                    } else {
                         $url_parts = parse_url($url);
-                        #only made it work for http:// links. Any problem with this?
                         $full_url = "http://$url_parts[host]";
                         if (isset($url_parts['port'])) {
                             $full_url .= ":$url_parts[port]";
                         }
-                        if ($href[0] != '/') { #it's a relative link on the domain
+                        if ($href[0] != '/') { 
                             $full_url .= dirname($url_parts['path']);
                             if (substr($full_url, -1) != '/') {
-                                #if the last character isn't a '/', add it
                                 $full_url .= '/';
                             }
                         }
                         $full_url .= $href;
                     }
-
                     return $href;
                 }
             }
@@ -92,14 +77,10 @@ class RssLink
         $_SESSION['error'] = 'URL sans flux RSS';
         header("Location: index");
         return null;
-        unset($_SESSION['error']);
+        // unset($_SESSION['error']);
     }
 
-    /**
-     * getJSON
-     * get the json data in the json file and parse it
-     * @return array
-     */
+
     public static function getJSON(): array
     {
         $json = file_get_contents('data.json');
@@ -110,12 +91,7 @@ class RssLink
         return $array;
     }
 
-    /**
-     * getRSSLinks
-     * get the links from the data json file
-     * and return the XML data
-     * @return array
-     */
+
     public static function getRSSlinks(): array
     {
         $dataJSON = file_get_contents('data.json');
@@ -127,12 +103,7 @@ class RssLink
         return $websites;
     }
 
-    /**
-     * parseXML
-     * return XML data from RSS link
-     * @param string $link
-     * @return object
-     */
+
     private static function parseXML(string $link): object
     {
         $content = file_get_contents($link);
@@ -140,11 +111,7 @@ class RssLink
         return $a->channel;
     }
 
-    /**
-     * deleteLink
-     * @param int $id
-     * @return void
-     */
+
     public static function deleteLink(int $id): void
     {
         $links = self::getJSON();
@@ -153,11 +120,6 @@ class RssLink
     }
 
 
-    /**
-     * saveFile
-     * @param array $links
-     * @return void
-     */
     private static function saveFile(array $links): void
     {
         $jsonLinks = json_encode($links);
