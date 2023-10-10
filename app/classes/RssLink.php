@@ -24,7 +24,6 @@ class RssLink
             $_SESSION['error'] = "URL non valide <br>";
             header("Location: index");
             return null;
-            // unset($_SESSION['error']);
         }
 
         $html = file_get_contents($url);
@@ -62,7 +61,7 @@ class RssLink
                         if (isset($url_parts['port'])) {
                             $full_url .= ":$url_parts[port]";
                         }
-                        if ($href[0] != '/') { 
+                        if ($href[0] != '/') {
                             $full_url .= dirname($url_parts['path']);
                             if (substr($full_url, -1) != '/') {
                                 $full_url .= '/';
@@ -77,7 +76,6 @@ class RssLink
         $_SESSION['error'] = 'URL sans flux RSS';
         header("Location: index");
         return null;
-        // unset($_SESSION['error']);
     }
 
 
@@ -98,17 +96,21 @@ class RssLink
         $data = json_decode($dataJSON);
         $websites = [];
         foreach ($data as $link) {
-            $websites[] = self::parseXML($link);
+            $links = self::parseXML($link);
+            if ($links) {
+                $websites[] = $links;
+            }
         }
         return $websites;
     }
 
 
-    private static function parseXML(string $link): object
+    private static function parseXML(string $link)
     {
-        $content = file_get_contents($link);
-        $a = new SimpleXMLElement($content);
-        return $a->channel;
+        if ($content = file_get_contents($link)) {
+            $a = new SimpleXMLElement($content);
+            return $a->channel;
+        }
     }
 
 
