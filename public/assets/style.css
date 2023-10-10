@@ -288,15 +288,6 @@ input[value="Supprimer"]:hover {
   clear: both;
 }
 
-@media screen and (max-width: 600px) {
-  .col-25,
-  .col-75,
-  .col-15,
-  input[type="submit"] {
-    width: 100%;
-    margin-top: 10px;
-  }
-}
 
 /*
 =============== 
@@ -387,4 +378,22 @@ Table Styles
   text-align: left;
   background: var(--clr-grey-1);
   color: white;
+}
+
+
+@media screen and (max-width: 600px) {
+  .col-25,
+  .col-75,
+  .col-15,
+  input[type="submit"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+#table{
+  width: 100%;
+}
+  .link{
+    width: 100%;
+  }
 }
